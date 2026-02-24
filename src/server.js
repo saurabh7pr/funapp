@@ -7,7 +7,9 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
-connectDB();
+connectDB().catch((error) => {
+  console.error("Initial MongoDB connection failed:", error.message);
+});
 
 const app = express();
 const isProduction = process.env.NODE_ENV === "production";
